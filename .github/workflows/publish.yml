@@ -1,0 +1,68 @@
+name: Publish Extension
+
+# Publishes the VS Code extension when a GitHub Release is published,
+# or build-only on manual dispatch. The packaged .vsix is always uploaded as an
+# artifact and attached to the GitHub Release.
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: "Publish to the marketplaces (otherwise build-only)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Sync version to release tag
+        if: github.event_name == 'release'
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          PKG_VERSION="$(node -p "require('./package.json').version")"
+          if [ "$TAG" != "$PKG_VERSION" ]; then
+            echo "Setting package version to $TAG (was $PKG_VERSION)"
+            npm version "$TAG" --no-git-tag-version --allow-same-version
+          fi
+
+      - name: Package VSIX
+        run: npm run package
+
+      - name: Upload VSIX artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-dashboard-vsix
+          path: app/pr-dashboard.vsix
+          if-no-files-found: error
+
+      # Publish only runs for published releases or when manually requested.
+      - name: Publish to Visual Studio Marketplace
+        if: github.event_name == 'release' || inputs.publish
+        run: npx --yes @vscode/vsce publish --packagePath pr-dashboard.vsix
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+
+      - name: Attach VSIX to GitHub Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: app/pr-dashboard.vsix

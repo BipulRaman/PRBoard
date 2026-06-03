@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; img-src {{cspSource}} https: data:; style-src {{cspSource}} 'unsafe-inline'; script-src 'nonce-{{nonce}}';"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{styleUri}}" />
+    <title>Repositories</title>
+  </head>
+  <body>
+    <header class="repo-toolbar">
+      <div class="search-row">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input
+          id="repo-filter"
+          type="text"
+          placeholder="Search repositories"
+          aria-label="Search repositories"
+        />
+        <button id="repo-clear" class="icon-btn" title="Clear search" hidden>✕</button>
+      </div>
+    </header>
+    <main id="repo-content" class="repo-list" aria-live="polite"></main>
+    <script nonce="{{nonce}}" src="{{scriptUri}}"></script>
+  </body>
+</html>

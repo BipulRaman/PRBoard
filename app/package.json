@@ -1,0 +1,122 @@
+{
+  "name": "pr-dashboard",
+  "displayName": "PR Dashboard",
+  "description": "Monitor open pull requests across the repos you choose — GitHub.com, GitHub Enterprise, and Azure DevOps.",
+  "version": "0.1.0",
+  "publisher": "BipulRaman",
+  "license": "MIT",
+  "icon": "media/icon.png",
+  "homepage": "https://github.com/BipulRaman/PRBoard#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BipulRaman/PRBoard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BipulRaman/PRBoard/issues"
+  },
+  "keywords": [
+    "pull requests",
+    "github",
+    "azure devops",
+    "code review",
+    "dashboard"
+  ],
+  "galleryBanner": {
+    "color": "#2D78EB",
+    "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "SCM Providers"
+  ],
+  "activationEvents": [],
+  "main": "./src/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "prDashboard",
+          "title": "PR Dashboard",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "prDashboard": [
+        {
+          "type": "webview",
+          "id": "prDashboard.view",
+          "name": "Pull Requests"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "prDashboard.open",
+        "title": "Open in Editor",
+        "category": "PR Dashboard"
+      },
+      {
+        "command": "prDashboard.refresh",
+        "title": "Refresh",
+        "category": "PR Dashboard",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "prDashboard.addRepo",
+        "title": "Add Repository\u2026",
+        "category": "PR Dashboard",
+        "icon": "$(add)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "prDashboard.addRepo",
+          "when": "view == prDashboard.view",
+          "group": "navigation@1"
+        },
+        {
+          "command": "prDashboard.refresh",
+          "when": "view == prDashboard.view",
+          "group": "navigation@2"
+        },
+        {
+          "command": "prDashboard.open",
+          "when": "view == prDashboard.view",
+          "group": "overflow@1"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "PR Dashboard",
+      "properties": {
+        "prDashboard.refreshIntervalMinutes": {
+          "type": "number",
+          "default": 5,
+          "minimum": 0,
+          "description": "Auto-refresh interval in minutes. Set to 0 to disable auto-refresh."
+        },
+        "prDashboard.notifyOnReviewRequest": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show a notification when a pull request newly needs your review."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "lint": "echo \"No linter configured\" && exit 0",
+    "icon": "node media/make-icon.js",
+    "package": "vsce package --no-dependencies --out pr-dashboard.vsix",
+    "publish": "vsce publish --no-dependencies",
+    "install-extension": "code --install-extension pr-dashboard.vsix"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.2.1"
+  }
+}

@@ -1,0 +1,15 @@
+# Source-control / tooling
+.vscode/**
+.git/**
+.gitignore
+
+# Packaging output
+**/*.vsix
+
+# Dev-only assets (icon generator is not needed at runtime)
+media/make-icon.js
+
+# Dev artifacts
+**/*.map
+**/.DS_Store
+node_modules/.cache/**

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; img-src {{cspSource}} https: data:; style-src {{cspSource}} 'unsafe-inline'; script-src 'nonce-{{nonce}}';"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{styleUri}}" />
+    <title>PR Dashboard</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="search-row">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input
+          id="filter-input"
+          type="text"
+          placeholder="Filter by title, author, reviewer, label"
+          aria-label="Filter pull requests"
+        />
+        <button id="clear-filter" class="icon-btn" title="Clear filter" hidden>✕</button>
+      </div>
+      <div class="chips" id="chips">
+        <button class="chip is-active" data-filter="all">
+          All <span class="chip-count" id="count-all">0</span>
+        </button>
+        <button class="chip" data-filter="mine">
+          Needs my review <span class="chip-count" id="count-mine">0</span>
+        </button>
+        <button class="chip" data-filter="drafts">
+          Drafts <span class="chip-count" id="count-drafts">0</span>
+        </button>
+      </div>
+    </header>
+
+    <div id="status" class="banner" hidden></div>
+    <div id="errors" class="banner error" hidden></div>
+
+    <main id="content" class="content" aria-live="polite"></main>
+
+    <script nonce="{{nonce}}" src="{{scriptUri}}"></script>
+  </body>
+</html>

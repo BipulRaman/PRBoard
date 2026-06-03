@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PR Dashboard — Monitor pull requests inside VS Code</title>
+    <meta
+      name="description"
+      content="A VS Code extension that gives you one panel to monitor open pull requests across GitHub.com, GitHub Enterprise, and Azure DevOps."
+    />
+    <meta name="theme-color" content="#2D78EB" />
+
+    <!-- Open Graph / social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="PR Dashboard for VS Code" />
+    <meta
+      property="og:description"
+      content="One panel to monitor open pull requests across GitHub.com, GitHub Enterprise, and Azure DevOps."
+    />
+    <meta property="og:image" content="icon.svg" />
+
+    <link rel="icon" type="image/svg+xml" href="icon.svg" />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#features">Skip to content</a>
+
+    <!-- ===================== Header ===================== -->
+    <header class="site-header">
+      <div class="wrap nav">
+        <a class="brand" href="#top" aria-label="PR Dashboard home">
+          <img src="icon.svg" alt="" class="brand-mark" width="30" height="30" />
+          <span class="brand-name">PR Dashboard</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#features">Features</a>
+          <a href="#how">How it works</a>
+          <a href="#hosts">Supported hosts</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+        <a
+          class="btn btn-primary btn-sm"
+          href="https://marketplace.visualstudio.com/items?itemName=BipulRaman.pr-dashboard"
+          >Get the extension</a
+        >
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- ===================== Hero ===================== -->
+      <section class="hero">
+        <div class="wrap hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">VS Code Extension</span>
+            <h1>
+              Every pull request you care about,
+              <span class="grad">in one panel.</span>
+            </h1>
+            <p class="lead">
+              Stop tab-hopping between repos and providers. PR Dashboard surfaces
+              open pull requests from <strong>GitHub.com</strong>,
+              <strong>GitHub Enterprise</strong>, and
+              <strong>Azure DevOps</strong> — right inside your editor.
+            </p>
+            <div class="cta-row">
+              <a
+                class="btn btn-primary"
+                href="https://marketplace.visualstudio.com/items?itemName=BipulRaman.pr-dashboard"
+                >Install from Marketplace</a
+              >
+              <a class="btn btn-ghost" href="https://github.com/BipulRaman/PRBoard"
+                >View on GitHub →</a
+              >
+            </div>
+            <ul class="hero-points">
+              <li>No personal access tokens — OAuth via VS Code</li>
+              <li>Auto-refresh &amp; review notifications</li>
+              <li>Free &amp; open source (MIT)</li>
+            </ul>
+          </div>
+
+          <!-- Stylized product mock -->
+          <div class="hero-art" aria-hidden="true">
+            <div class="window">
+              <div class="window-bar">
+                <span class="dot red"></span>
+                <span class="dot amber"></span>
+                <span class="dot green"></span>
+                <span class="window-title">Pull Requests</span>
+              </div>
+              <div class="window-body">
+                <div class="mock-search">⌕ Filter by title, author, reviewer…</div>
+                <div class="mock-chips">
+                  <span class="mchip active">All <b>12</b></span>
+                  <span class="mchip">Needs my review <b>3</b></span>
+                  <span class="mchip">Drafts <b>2</b></span>
+                </div>
+                <div class="mock-pr need">
+                  <div class="mock-pr-top">
+                    <span class="mock-status s-green"></span>
+                    <span class="mock-pr-title">Fix flaky integration test</span>
+                    <span class="mock-pr-num">#142</span>
+                  </div>
+                  <div class="mock-pr-meta">
+                    <span class="tag tag-review">Needs your review</span>
+                    <span class="muted">octocat · 2h ago</span>
+                  </div>
+                </div>
+                <div class="mock-pr">
+                  <div class="mock-pr-top">
+                    <span class="mock-status s-amber"></span>
+                    <span class="mock-pr-title">Add Azure DevOps client</span>
+                    <span class="mock-pr-num">#138</span>
+                  </div>
+                  <div class="mock-pr-meta">
+                    <span class="tag">checks running</span>
+                    <span class="muted">teammate · 5h ago</span>
+                  </div>
+                </div>
+                <div class="mock-pr">
+                  <div class="mock-pr-top">
+                    <span class="mock-status s-red"></span>
+                    <span class="mock-pr-title">Refactor poller timer</span>
+                    <span class="mock-pr-num">#131</span>
+                  </div>
+                  <div class="mock-pr-meta">
+                    <span class="tag tag-draft">draft</span>
+                    <span class="muted">you · 1d ago</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== Logos / hosts strip ===================== -->
+      <section class="strip" id="hosts">
+        <div class="wrap strip-inner">
+          <p class="strip-label">Works with</p>
+          <div class="strip-items">
+            <span class="host-pill">GitHub.com</span>
+            <span class="host-pill">GitHub Enterprise Server</span>
+            <span class="host-pill">Azure DevOps</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== Features ===================== -->
+      <section class="section" id="features">
+        <div class="wrap">
+          <div class="section-head">
+            <span class="eyebrow">Features</span>
+            <h2>Built for people who live in reviews</h2>
+            <p class="section-sub">
+              Everything you need to stay on top of your team's pull requests,
+              without leaving VS Code.
+            </p>
+          </div>
+
+          <div class="cards">
+            <article class="card">
+              <div class="card-icon">🗂️</div>
+              <h3>One panel, every repo</h3>
+              <p>
+                Open PRs grouped per watched repository, across multiple providers
+                and hosts at the same time.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon">➕</div>
+              <h3>Add repos in seconds</h3>
+              <p>
+                Use <code>owner/repo</code> or paste a full repository URL — GitHub,
+                Enterprise, or Azure DevOps.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon">✅</div>
+              <h3>Rich PR status</h3>
+              <p>
+                CI checks, review decision, draft state, and mergeable / conflict
+                indicators at a glance.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon">🔎</div>
+              <h3>Powerful filters</h3>
+              <p>
+                Filter by author, reviewer, or label, plus a one-click
+                “Needs my review” view.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon">🔔</div>
+              <h3>Auto-refresh &amp; alerts</h3>
+              <p>
+                A configurable timer keeps the list fresh and notifies you the moment
+                a PR newly needs your review.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon">🔐</div>
+              <h3>Secure by design</h3>
+              <p>
+                Authentication uses VS Code's built-in OAuth providers. Tokens live in
+                the OS secret store — never persisted by the extension.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== How it works ===================== -->
+      <section class="section section-alt" id="how">
+        <div class="wrap">
+          <div class="section-head">
+            <span class="eyebrow">How it works</span>
+            <h2>Up and running in three steps</h2>
+          </div>
+
+          <ol class="steps">
+            <li class="step">
+              <div class="step-num">1</div>
+              <h3>Install &amp; open</h3>
+              <p>
+                Install from the Marketplace and open the
+                <strong>PR Dashboard</strong> view from the Activity Bar.
+              </p>
+            </li>
+            <li class="step">
+              <div class="step-num">2</div>
+              <h3>Add a repository</h3>
+              <p>
+                Click <strong>Add Repository…</strong> and enter an
+                <code>owner/repo</code> or a full URL.
+              </p>
+            </li>
+            <li class="step">
+              <div class="step-num">3</div>
+              <h3>Sign in once</h3>
+              <p>
+                VS Code prompts you for OAuth sign-in, then your pull requests appear —
+                and stay refreshed.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ===================== Settings ===================== -->
+      <section class="section" id="settings">
+        <div class="wrap">
+          <div class="section-head">
+            <span class="eyebrow">Configuration</span>
+            <h2>Tune it to your workflow</h2>
+          </div>
+          <div class="table-wrap">
+            <table class="settings-table">
+              <thead>
+                <tr>
+                  <th>Setting</th>
+                  <th>Default</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>prDashboard.refreshIntervalMinutes</code></td>
+                  <td><code>5</code></td>
+                  <td>Auto-refresh interval. Set to <code>0</code> to disable.</td>
+                </tr>
+                <tr>
+                  <td><code>prDashboard.notifyOnReviewRequest</code></td>
+                  <td><code>true</code></td>
+                  <td>Notify when a PR newly needs your review.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== FAQ ===================== -->
+      <section class="section section-alt" id="faq">
+        <div class="wrap narrow">
+          <div class="section-head">
+            <span class="eyebrow">FAQ</span>
+            <h2>Questions, answered</h2>
+          </div>
+
+          <details class="faq">
+            <summary>Do I need a personal access token?</summary>
+            <p>
+              No. Authentication uses VS Code's built-in GitHub, GitHub Enterprise, and
+              Microsoft (Azure DevOps) OAuth providers. The extension never asks for or
+              stores tokens itself.
+            </p>
+          </details>
+          <details class="faq">
+            <summary>How do I connect GitHub Enterprise?</summary>
+            <p>
+              Set VS Code's <code>github-enterprise.uri</code> setting to your GHE host,
+              then add a repo using its full URL, e.g.
+              <code>https://github.mycompany.com/team/service</code>.
+            </p>
+          </details>
+          <details class="faq">
+            <summary>How do I add an Azure DevOps repository?</summary>
+            <p>
+              Paste the full repo URL, e.g.
+              <code>https://dev.azure.com/org/project/_git/repo</code>. Sign-in uses
+              your Microsoft account.
+            </p>
+          </details>
+          <details class="faq">
+            <summary>Where is my data stored?</summary>
+            <p>
+              Your watched-repo list is kept in VS Code's extension storage. OAuth
+              tokens are managed by VS Code in the OS secret store.
+            </p>
+          </details>
+        </div>
+      </section>
+
+      <!-- ===================== Final CTA ===================== -->
+      <section class="cta-band">
+        <div class="wrap cta-inner">
+          <h2>Bring your pull requests home.</h2>
+          <p>Install PR Dashboard and review without the tab chaos.</p>
+          <div class="cta-row center">
+            <a
+              class="btn btn-primary btn-lg"
+              href="https://marketplace.visualstudio.com/items?itemName=BipulRaman.pr-dashboard"
+              >Install from Marketplace</a
+            >
+            <a class="btn btn-ghost btn-lg" href="https://github.com/BipulRaman/PRBoard"
+              >Star on GitHub</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===================== Footer ===================== -->
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div class="footer-brand">
+          <img src="icon.svg" alt="" width="26" height="26" />
+          <span>PR Dashboard</span>
+        </div>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="https://github.com/BipulRaman/PRBoard">GitHub</a>
+          <a
+            href="https://marketplace.visualstudio.com/items?itemName=BipulRaman.pr-dashboard"
+            >Marketplace</a
+          >
+          <a href="https://github.com/BipulRaman/PRBoard/issues">Report an issue</a>
+        </nav>
+        <p class="footer-note">
+          Released under the MIT License. © <span id="year">2026</span> Bipul Raman.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // Year + tiny header shadow on scroll. Progressive enhancement only.
+      document.getElementById("year").textContent = new Date().getFullYear();
+      const header = document.querySelector(".site-header");
+      const onScroll = () =>
+        header.classList.toggle("is-scrolled", window.scrollY > 8);
+      onScroll();
+      window.addEventListener("scroll", onScroll, { passive: true });
+    </script>
+  </body>
+</html>
