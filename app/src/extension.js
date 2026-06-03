@@ -258,11 +258,16 @@ function activate(context) {
  */
 function openPanel(context) {
   if (panel) {
-    panel.reveal(vscode.ViewColumn.Active, true);
-    return;
+    try {
+      panel.reveal(vscode.ViewColumn.Active, true);
+      return;
+    } catch {
+      // The reference is stale (panel was disposed). Fall through and recreate.
+      panel = undefined;
+    }
   }
   const mediaRoot = vscode.Uri.file(path.join(context.extensionPath, "media"));
-  panel = vscode.window.createWebviewPanel(
+  const created = vscode.window.createWebviewPanel(
     "prDashboard",
     "Pull Requests",
     { viewColumn: vscode.ViewColumn.Active, preserveFocus: true },
@@ -272,12 +277,17 @@ function openPanel(context) {
       localResourceRoots: [mediaRoot],
     }
   );
-  controller.attach(panel.webview, "prs");
-  panel.onDidDispose(() => {
-    if (panel) {
-      controller.detach(panel.webview);
+  panel = created;
+  // Capture the webview reference now; accessing `created.webview` later (during
+  // disposal) can throw, which previously left `panel` pointing at a dead panel
+  // and made it impossible to reopen.
+  const createdWebview = created.webview;
+  controller.attach(createdWebview, "prs");
+  created.onDidDispose(() => {
+    controller.detach(createdWebview);
+    if (panel === created) {
+      panel = undefined;
     }
-    panel = undefined;
   });
 }
 

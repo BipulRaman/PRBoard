@@ -1,6 +1,31 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" clip-rule="evenodd" d="M4 3.5A2.5 2.5 0 0 1 6.5 1h11A2.5 2.5 0 0 1 20 3.5v17a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 20.5v-17ZM6.5 3a.5.5 0 0 0-.5.5v17a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5v-17a.5.5 0 0 0-.5-.5h-11Z" fill="currentColor"/>
-  <path d="M8 6.75A.75.75 0 0 1 8.75 6h6.5a.75.75 0 0 1 0 1.5h-6.5A.75.75 0 0 1 8 6.75Z" fill="currentColor"/>
-  <path d="M8 10.75a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 0 1.5h-4a.75.75 0 0 1-.75-.75Z" fill="currentColor"/>
-  <path fill-rule="evenodd" clip-rule="evenodd" d="M16.78 14.22a.75.75 0 0 1 0 1.06l-4 4a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 1 1 1.06-1.06l1.47 1.47 3.47-3.47a.75.75 0 0 1 1.06 0Z" fill="currentColor"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="12" y1="8" x2="116" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2D78EB" />
+      <stop offset="1" stop-color="#6A5CFF" />
+    </linearGradient>
+    <linearGradient id="sheen" x1="64" y1="8" x2="64" y2="80" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".20" />
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+    </linearGradient>
+    <filter id="glyphShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="2.5" stdDeviation="3" flood-color="#0A1B3D" flood-opacity=".38" />
+    </filter>
+  </defs>
+
+  <rect x="8" y="8" width="112" height="112" rx="30" fill="url(#bg)" />
+  <rect x="8" y="8" width="112" height="112" rx="30" fill="url(#sheen)" />
+  <rect x="8.75" y="8.75" width="110.5" height="110.5" rx="29.25" stroke="#FFFFFF" stroke-opacity=".18" stroke-width="1.5" />
+
+  <g stroke="#FFFFFF" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round" filter="url(#glyphShadow)">
+    <!-- base branch -->
+    <circle cx="45" cy="40" r="7" />
+    <circle cx="45" cy="88" r="7" />
+    <path d="M45 47v34" />
+    <!-- incoming branch merging in -->
+    <circle cx="83" cy="40" r="7" />
+    <path d="M83 47v16a18 18 0 0 1-18 18h-6" />
+    <!-- arrow head -->
+    <path d="m65 76-7 6 7 6" />
+  </g>
 </svg>

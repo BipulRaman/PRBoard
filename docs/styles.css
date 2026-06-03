@@ -188,8 +188,7 @@ code {
 }
 .brand-mark {
   border-radius: 8px;
-  background: var(--grad);
-  padding: 3px;
+  box-shadow: var(--shadow-sm);
 }
 .brand-name {
   font-size: 1.08rem;
@@ -719,8 +718,6 @@ code {
 }
 .footer-brand img {
   border-radius: 7px;
-  background: var(--grad);
-  padding: 2px;
 }
 .footer-links {
   display: flex;
